@@ -43,10 +43,10 @@ RUN conan install . \
 
 # Configure and build
 RUN /bin/bash -c "\
-    source build/Release/generators/conanbuild.sh && \
+    source build/conanbuild.sh && \
     cmake -B build \
           -G Ninja \
-          -DCMAKE_TOOLCHAIN_FILE=build/Release/generators/conan_toolchain.cmake \
+          -DCMAKE_TOOLCHAIN_FILE=$(find build -name conan_toolchain.cmake -print -quit) \
           -DCMAKE_BUILD_TYPE=Release \
           -DBUILD_ABI_CHECK_TOOL=OFF \
           -DBUILD_UNICODE_COMPONENT=OFF \
