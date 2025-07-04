@@ -6,7 +6,7 @@
  *  The original code is copyright (c) 2022, open.mp team and contributors.
  */
 
-#include <ghc/filesystem.hpp>
+#include <filesystem>
 #include "PluginManager.hpp"
 #include "../utils.hpp"
 
@@ -68,7 +68,7 @@ void PawnPluginManager::Load(std::string const& name)
 		return;
 	}
 
-	String pluginName = ghc::filesystem::path(name).stem().string();
+	String pluginName = std::filesystem::path(name).stem().string();
 	for (BrokenPluginMessageData brokenPlugin : BrokenPlugins)
 	{
 		if (pluginName == brokenPlugin.name)

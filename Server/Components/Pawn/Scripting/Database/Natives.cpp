@@ -8,7 +8,7 @@
 
 #include "../Types.hpp"
 #include "sdk.hpp"
-#include <ghc/filesystem.hpp>
+#include <filesystem>
 #include "../../format.hpp"
 
 static int getFlags(cell* params)
@@ -89,7 +89,11 @@ static IDatabaseConnection* doDBOpen(const std::string& name, int flags)
 	else
 	{
 		// TODO: Pass in the flags.
-		ghc::filesystem::path dbFilePath = ghc::filesystem::absolute("scriptfiles/" + path);
+		std::filesystem::path dbFilePath = std::filesystem::absolute("scriptfiles/" + path);
+		if (!std::filesystem::exists(dbFilePath))
+		{
+			return 0;
+		}
 		return PawnManager::Get()->databases->open(protocol + dbFilePath.string() + parameters, flags);
 	}
 }

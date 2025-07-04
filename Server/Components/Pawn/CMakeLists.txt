@@ -3,7 +3,6 @@ add_server_component(${ProjectId})
 
 target_link_libraries(${ProjectId} PRIVATE
 	pawn-runtime
-	ghcFilesystem::ghc_filesystem
 )
 
 target_compile_definitions(${ProjectId} PRIVATE

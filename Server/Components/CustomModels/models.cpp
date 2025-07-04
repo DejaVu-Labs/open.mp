@@ -11,7 +11,7 @@
 #include <sdk.hpp>
 #include <netcode.hpp>
 #include <httplib.h>
-#include <ghc/filesystem.hpp>
+#include <filesystem>
 #include "crc32.hpp"
 #include <regex>
 #include <shared_mutex>
@@ -476,9 +476,9 @@ public:
 		// Attempt to create models folder.
 		try
 		{
-			ghc::filesystem::create_directory(modelsPath);
+			std::filesystem::create_directory(modelsPath);
 		}
-		catch (ghc::filesystem::filesystem_error exception)
+		catch (std::filesystem::filesystem_error exception)
 		{
 			enabled = false;
 			core->logLn(LogLevel::Error, "[artwork:error] Unable to create models path (%.*s).", PRINT_VIEW(modelsPath));

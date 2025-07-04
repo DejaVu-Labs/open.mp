@@ -92,7 +92,6 @@ class OpenMPConan(ConanFile):
         # Core dependencies
         self.requires("nlohmann_json/3.11.3")
         self.requires("openssl/1.1.1w")
-        self.requires("ghc-filesystem/1.5.14")
         self.requires("cxxopts/3.2.0")
         
         if self.options.build_sqlite_component:

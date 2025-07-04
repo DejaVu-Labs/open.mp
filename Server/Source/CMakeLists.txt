@@ -25,7 +25,6 @@ target_link_libraries(Server PRIVATE
 	nlohmann_json::nlohmann_json
 	openssl::openssl
 	cxxopts::cxxopts
-	ghcFilesystem::ghc_filesystem
 )
 
 if(MSVC)

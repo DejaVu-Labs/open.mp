@@ -9,7 +9,7 @@
 #include <Server/Components/Recordings/recordings.hpp>
 #include <sdk.hpp>
 #include <netcode.hpp>
-#include <ghc/filesystem.hpp>
+#include <filesystem>
 
 class PlayerRecordingData final : public IPlayerRecordingData
 {
@@ -26,12 +26,12 @@ public:
 		type_ = type;
 		start_ = Time::now();
 
-		ghc::filesystem::path scriptfilesPath = ghc::filesystem::absolute("scriptfiles");
-		if (!ghc::filesystem::exists(scriptfilesPath) || !ghc::filesystem::is_directory(scriptfilesPath))
+		std::filesystem::path scriptfilesPath = std::filesystem::absolute("scriptfiles");
+		if (!std::filesystem::exists(scriptfilesPath) || !std::filesystem::is_directory(scriptfilesPath))
 		{
-			ghc::filesystem::create_directory(scriptfilesPath);
+			std::filesystem::create_directory(scriptfilesPath);
 		}
-		auto filePath = scriptfilesPath / ghc::filesystem::path(std::string(file) + ".rec");
+		auto filePath = scriptfilesPath / std::filesystem::path(std::string(file) + ".rec");
 		file_.open(filePath.string(), std::ios_base::out | std::ios_base::binary);
 
 		// Write recording header

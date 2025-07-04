@@ -10,7 +10,7 @@
 #include "PluginManager/PluginManager.hpp"
 #include "Scripting/Impl.hpp"
 #include "Server/Components/Pawn/pawn.hpp"
-#include <ghc/filesystem.hpp>
+#include <filesystem>
 #include <stdlib.h>
 
 static StaticArray<void*, NUM_AMX_FUNCS> AMX_FUNCTIONS = {
@@ -117,10 +117,10 @@ public:
 		core->getEventDispatcher().addEventHandler(this);
 
 		// Set AMXFILE environment variable to "{current_dir}/scriptfiles"
-		ghc::filesystem::path scriptfilesPath = ghc::filesystem::absolute("scriptfiles");
-		if (!ghc::filesystem::exists(scriptfilesPath) || !ghc::filesystem::is_directory(scriptfilesPath))
+		std::filesystem::path scriptfilesPath = std::filesystem::absolute("scriptfiles");
+		if (!std::filesystem::exists(scriptfilesPath) || !std::filesystem::is_directory(scriptfilesPath))
 		{
-			ghc::filesystem::create_directory(scriptfilesPath);
+			std::filesystem::create_directory(scriptfilesPath);
 		}
 
 #if defined(GHC_USE_WCHAR_T)

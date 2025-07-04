@@ -145,7 +145,6 @@ endif()
 # Find packages installed by Conan - must be done before subdirectories
 find_package(nlohmann_json REQUIRED)
 find_package(OpenSSL REQUIRED)
-find_package(ghc_filesystem REQUIRED)
 find_package(cxxopts REQUIRED)
 
 if(BUILD_SQLITE_COMPONENT)

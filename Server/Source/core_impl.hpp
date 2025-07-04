@@ -20,7 +20,7 @@
 #include <cstdarg>
 #include <cxxopts.hpp>
 #include <events.hpp>
-#include <ghc/filesystem.hpp>
+#include <filesystem>
 #include <fstream>
 #include <nlohmann/json.hpp>
 #include <pool.hpp>
