@@ -23,10 +23,7 @@ RUN pip3 install --no-cache-dir conan==2.18.1
 
 # Detect default profile once so subsequent commands use same settings
 RUN conan profile detect --force && \
-    conan profile update settings.compiler.cppstd=gnu17 default && \
-    conan profile update settings.compiler=clang default && \
-    conan profile update settings.compiler.version=16 default && \
-    conan profile update settings.compiler.libcxx=libstdc++11 default
+    echo "Detected Conan profile configured"
 
 # Copy project sources
 WORKDIR /workspace
