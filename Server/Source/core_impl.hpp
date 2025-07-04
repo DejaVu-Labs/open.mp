@@ -1031,7 +1031,7 @@ private:
 		}
 	}
 
-	IComponent* loadComponent(const ghc::filesystem::path& path, bool highPriority = false)
+	IComponent* loadComponent(const std::filesystem::path& path, bool highPriority = false)
 	{
 		printLn("Loading component %s", path.filename().u8string().c_str());
 		auto componentLib = highPriority ? LIBRARY_OPEN_GLOBAL(path.u8string().c_str()) : LIBRARY_OPEN(path.u8string().c_str());
@@ -1078,26 +1078,26 @@ private:
 		return component;
 	}
 
-	void loadComponents(const ghc::filesystem::path& path)
+	void loadComponents(const std::filesystem::path& path)
 	{
-		ghc::filesystem::create_directory(path);
+		std::filesystem::create_directory(path);
 
 		auto componentsCfg = config.getStrings("components");
 		auto excludeCfg = config.getStrings("exclude");
 
-		Impl::DynamicArray<ghc::filesystem::path> highPriorityComponents;
-		Impl::DynamicArray<ghc::filesystem::path> normalComponents;
+		Impl::DynamicArray<std::filesystem::path> highPriorityComponents;
+		Impl::DynamicArray<std::filesystem::path> normalComponents;
 
-		const auto shouldLoad = [&](const ghc::filesystem::path& p)
+		const auto shouldLoad = [&](const std::filesystem::path& p)
 		{
 			if (excludeCfg && !excludeCfg->empty())
 			{
-				ghc::filesystem::path rel = ghc::filesystem::relative(p, path);
+				std::filesystem::path rel = std::filesystem::relative(p, path);
 				rel.replace_extension();
 				// Is this in the "don't load" list?
 				const auto isExcluded = [rel = std::move(rel)](const String& exclude)
 				{
-					return ghc::filesystem::path(exclude) == rel;
+					return std::filesystem::path(exclude) == rel;
 				};
 				if (std::find_if(excludeCfg->begin(), excludeCfg->end(), isExcluded)
 					!= excludeCfg->end())
@@ -1110,9 +1110,9 @@ private:
 
 		if (!componentsCfg || componentsCfg->empty())
 		{
-			for (auto& de : ghc::filesystem::recursive_directory_iterator(path))
+			for (auto& de : std::filesystem::recursive_directory_iterator(path))
 			{
-				ghc::filesystem::path p = de.path();
+				std::filesystem::path p = de.path();
 				if (p.filename().string().at(0) == '$')
 				{
 					highPriorityComponents.push_back(p);
@@ -1161,7 +1161,7 @@ private:
 		{
 			for (const StringView component : *componentsCfg)
 			{
-				auto file = ghc::filesystem::path(path) / component.data();
+				auto file = std::filesystem::path(path) / component.data();
 				if (file.has_extension())
 				{
 					file.replace_extension("");
@@ -1186,7 +1186,7 @@ private:
 
 				// Now load it.
 				p.replace_extension(LIBRARY_EXT);
-				if (ghc::filesystem::exists(p))
+				if (std::filesystem::exists(p))
 				{
 					IComponent* component = loadComponent(p, true);
 					if (component)
@@ -1210,7 +1210,7 @@ private:
 
 				// Now load it.
 				p.replace_extension(LIBRARY_EXT);
-				if (ghc::filesystem::exists(p))
+				if (std::filesystem::exists(p))
 				{
 					IComponent* component = loadComponent(p);
 					if (component)
@@ -1226,7 +1226,7 @@ private:
 			}
 		}
 
-		std::string absPath = ghc::filesystem::canonical(path).string();
+		std::string absPath = std::filesystem::canonical(path).string();
 		printLnU8("Loaded %i component(s) from %.*s", components.size(), PRINT_VIEW(StringView(absPath)));
 	}
 
@@ -1618,7 +1618,7 @@ public:
 		if (components.size() == 0)
 		{
 			auto componentsDir = utils::GetExecutablePath().remove_filename();
-			componentsDir /= ghc::filesystem::path("components");
+			componentsDir /= std::filesystem::path("components");
 			loadComponents(componentsDir);
 		}
 
