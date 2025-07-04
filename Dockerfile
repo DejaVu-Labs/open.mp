@@ -5,6 +5,9 @@ FROM ubuntu:22.04 AS builder
 
 ENV DEBIAN_FRONTEND=noninteractive
 
+ENV CC=clang
+ENV CXX=clang++
+
 # Install build tools and Python for Conan
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
@@ -33,8 +36,10 @@ COPY . /workspace
 RUN conan install . \
         --output-folder=build \
         --build=missing \
-        -s:h compiler.cppstd=gnu17 \
-        -s:b compiler.cppstd=gnu17
+        -s compiler=clang \
+        -s compiler.version=14 \
+        -s compiler.libcxx=libstdc++11 \
+        -s compiler.cppstd=gnu17
 
 # Configure and build
 RUN /bin/bash -c "\
