@@ -154,7 +154,7 @@ int main(int argc, char** argv)
 		delete core;
 		done = true;
 	}
-	catch (cxxopts::OptionParseException e)
+	        catch (const cxxopts::exceptions::parsing& e)
 	{
 		std::cout << options.help() << std::endl;
 		std::cout << "Error while parsing arguments: " << e.what() << '\n';

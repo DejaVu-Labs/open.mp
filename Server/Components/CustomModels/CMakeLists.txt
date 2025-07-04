@@ -3,5 +3,5 @@ add_server_component(${ProjectId})
 include_directories(${CMAKE_SOURCE_DIR}/lib/cpp-httplib)
 
 target_link_libraries(${ProjectId} PRIVATE
-    CONAN_PKG::ghc-filesystem
+    ghcFilesystem::ghc_filesystem
 )
