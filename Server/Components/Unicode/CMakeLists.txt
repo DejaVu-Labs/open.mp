@@ -7,5 +7,5 @@ if (STATIC_STDCXX)
 endif()
 
 target_link_libraries(${ProjectId} PRIVATE
-	CONAN_PKG::icu
+	ICU::uc ICU::i18n ICU::data
 )

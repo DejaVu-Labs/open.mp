@@ -22,10 +22,10 @@ target_link_libraries(Server PUBLIC
 )
 
 target_link_libraries(Server PRIVATE
-	CONAN_PKG::nlohmann_json
-	CONAN_PKG::openssl
-	CONAN_PKG::cxxopts
-	CONAN_PKG::ghc-filesystem
+	nlohmann_json::nlohmann_json
+	openssl::openssl
+	cxxopts::cxxopts
+	ghcFilesystem::ghc_filesystem
 )
 
 if(MSVC)

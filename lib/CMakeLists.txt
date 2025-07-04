@@ -1,6 +1,5 @@
-# Conan third-party libraries
-include(${CMAKE_SOURCE_DIR}/lib/cmake-conan/conan.cmake)
-include(${CMAKE_SOURCE_DIR}/lib/cmake-conan/conan-omp.cmake)
+# Remove old Conan 1.x integration - dependencies now handled by conanfile.py
+# Dependencies are found in the root CMakeLists.txt
 
 if(BUILD_SERVER)
 	if(BUILD_PAWN_COMPONENT)
@@ -110,45 +109,4 @@ add_subdirectory(ttmath)
 GroupSourcesByFolder(ttmath)
 set_property(TARGET ttmath PROPERTY FOLDER "lib")
 
-# JSON
-# ----
-conan_omp_add_lib(nlohmann_json 3.9.1)
-
-# OpenSSL
-# -------
-	if(SHARED_OPENSSL)
-		message("Using shared OpenSSL")
-	conan_omp_add_lib_opt(openssl 1.1.1q "openssl:shared=True")
-else()
-		message("Using static OpenSSL")
-	conan_omp_add_lib(openssl 1.1.1q)
 endif()
-
-# ghc-filesystem
-# ----
-conan_omp_add_lib(ghc-filesystem 1.5.12)
-
-if(BUILD_SQLITE_COMPONENT)
-	# SQLite 3
-	# --------
-	conan_omp_add_lib_opt(sqlite3 3.36.0 "sqlite3:enable_math_functions=False")
-endif()
-
-if(BUILD_UNICODE_COMPONENT)
-	# ICU
-	# ---
-	conan_omp_add_lib(icu 70.1)
-
-	if(WIN32)
-		target_link_options(CONAN_PKG::icu INTERFACE "/SAFESEH:NO")
-	endif()
-endif()
-endif()
-
-if(BUILD_ABI_CHECK_TOOL)
-	conan_omp_add_lib(libelfin 0.3)
-endif()
-
-# cxxopts
-# ----
-conan_omp_add_lib(cxxopts 2.2.1)
