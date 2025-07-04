@@ -1,0 +1,9 @@
+# Ignore build artifacts and git metadata
+build/
+Output/
+.git/
+.gitmodules
+*.o
+*.a
+*.so
+CMakeUserPresets.json
