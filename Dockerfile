@@ -32,7 +32,9 @@ COPY . /workspace
 # Install dependencies and generate toolchain
 RUN conan install . \
         --output-folder=build \
-        --build=missing
+        --build=missing \
+        -s:h compiler.cppstd=gnu17 \
+        -s:b compiler.cppstd=gnu17
 
 # Configure and build
 RUN /bin/bash -c "\
