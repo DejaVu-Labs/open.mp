@@ -8,7 +8,7 @@
 
 #pragma once
 
-#include <ghc/filesystem.hpp>
+#include <filesystem>
 #include <types.hpp>
 #include <core.hpp>
 
@@ -96,13 +96,13 @@ std::string GetLastErrorAsString()
 
 void RunProcess(ILogger& logger, StringView exe, StringView args, bool runInBackground = false)
 {
-	auto exePath = ghc::filesystem::path(exe.data());
+	auto exePath = std::filesystem::path(exe.data());
 	if (!exePath.has_extension())
 	{
 		exePath.replace_extension(EXECUTABLE_EXT);
 	}
 
-	if (!ghc::filesystem::exists(exePath))
+	if (!std::filesystem::exists(exePath))
 	{
 		logger.logLn(LogLevel::Warning, "Bot executable not found: %.*s", PRINT_VIEW(exePath.string()));
 	}
@@ -141,20 +141,20 @@ unsigned GetTickCount()
 #endif
 }
 
-ghc::filesystem::path GetExecutablePath()
+std::filesystem::path GetExecutablePath()
 {
 #ifdef BUILD_WINDOWS
 	char path[4096] = { 0 };
 	if (GetModuleFileNameA(nullptr, path, sizeof(path)))
 	{
-		return ghc::filesystem::canonical(path);
+		return std::filesystem::canonical(path);
 	}
 	else
 	{
-		return ghc::filesystem::path();
+		return std::filesystem::path();
 	}
 #else
-	return ghc::filesystem::canonical("/proc/self/exe");
+	return std::filesystem::canonical("/proc/self/exe");
 #endif
 }
 
