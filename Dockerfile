@@ -43,7 +43,7 @@ RUN conan install . \
 
 # Configure and build
 RUN /bin/bash -c "\
-    source build/conanbuild.sh && \
+    source $(find build -name conanbuild.sh -print -quit) && \
     cmake -B build \
           -G Ninja \
           -DCMAKE_TOOLCHAIN_FILE=$(find build -name conan_toolchain.cmake -print -quit) \
